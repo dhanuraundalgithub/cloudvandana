@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Survey Form</title>
+    
+
+
+    <style>
+
+        /* Styling the Body element i.e. Color, 
+        Font, Alignment */ 
+        body {
+            background-color:darkcyan;
+            font-family: 'Times New Roman';
+            text-align: center;
+        }
+        /* Styling the Form (Color, Padding, Shadow) */
+        form {
+            background-color: white;
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 30px 20px;
+            box-shadow: 2px 5px 10px black;
+        }
+        .popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid #ccc;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+    </style>
+</head>
+<body>
+    <h1>Survey Form</h1>
+    <form id="surveyForm">
+        <div class="form-control">
+            <label for="firstName">First Name:</label>
+            <input type="text" id="firstName" name="firstName" required>
+        </div> <br>
+
+        <div class="form-control">
+            <label for="lastName">Last Name:</label>
+            <input type="text" id="lastName" name="lastName" required>
+        </div><br>
+
+        <div class="form-control">
+            <label for="dob">Date of Birth:</label>
+            <input type="date" id="dob" name="dob" required>
+        </div><br>
+
+        <div class='form-control'>
+            <label   id="gender">Gender:</label>
+            Male:<input type='checkbox'  id="male"  name='male' >
+            Female:<input type='checkbox' id='female'  name='female' >
+            Others:<input type='checkbox' id='others'  name='other' >
+          </div><br>
+
+          <div class='form-control'>
+            <label  class='form-label'>Country:</label>
+            <select name='country' id='country'>
+              <option>Select country</option>
+              <option>India</option>
+              <option>Australia</option>
+              <option>france</option>
+              <option>Germany</option>
+              <option>Canada</option></select>
+          </div> <br>
+
+          <div class='form-control'>           
+            <label  class='form-label'>City:</label>
+            <select name='city' id='city'>
+              <option>Select city</option>
+              <option>Pune</option>
+              <option>Thane</option>
+              <option>Mumbai</option>
+              <option>Nashik</option>
+              <option>Nagpur</option>
+            </select><br><br><br>
+          </div>
+          
+
+        <div class="form-control">
+            <label for="mobile">Mobile Number:</label>
+            <input type="tel" id="mobile" name="mobile" required pattern="[0-9]{10}" placeholder="10-digit number">
+        </div><br>
+
+        <div class="form-control">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+        </div><br>
+
+        <div class="form-control">
+            <label>Profession<span style="color: red;">*</span> </label>
+            <!-- Input Type Checkbox -->
+            <select name="profession" id="profession">
+                <option>Select your Profession</option>
+                <option>Student</option>
+                <option>Farmer</option>
+                <option>Teacher</option>
+                <option>Police</option>
+                <option>Actor</option>
+                <option>Engineer</option>
+                <option>Politician</option>
+                <option>Other</option>           
+             </select>
+        </div><br>
+
+        <button type="reset" id="resetButton">Reset</button>
+        <button type="button" id="submitButton">Submit</button>
+    </form>
+
+    <!-- Pop-up Information -->
+    <div id="infoPopup" class="popup">
+        <span class="close" id="closePopup">&times;</span>
+        <h2>Survey Data</h2>
+        <div id="popupContent"></div>
+    </div>
+
+    <script >
+        // JavaScript for the survey form
+
+const surveyForm = document.getElementById("surveyForm");
+const resetButton = document.getElementById("resetButton");
+const submitButton = document.getElementById("submitButton");
+const infoPopup = document.getElementById("infoPopup");
+const closePopup = document.getElementById("closePopup");
+const popupContent = document.getElementById("popupContent");
+
+submitButton.addEventListener("click", () => {
+    if (surveyForm.checkValidity()) {
+        const firstName = document.getElementById("firstName").value;
+        const lastName = document.getElementById("lastName").value;
+        const dob = document.getElementById("dob").value;
+        const country = document.getElementById("country").value;
+        const city = document.getElementById("city").value;
+        const mobile = document.getElementById("mobile").value;
+        const email = document.getElementById("email").value;
+        const profession = document.getElementById("profession").value;
+
+        const content = `
+            <p><strong>First Name:</strong> ${firstName}</p>
+            <p><strong>Last Name:</strong> ${lastName}</p>
+            <p><strong>Date of Birth:</strong> ${dob}</p>
+            <p><strong>country:</strong> ${country}</p>     
+            <p><strong>city:</strong> ${city}</p>
+            <p><strong>Mobile Number:</strong> ${mobile}</p>
+            <p><strong>Email:</strong> ${email}</p>
+            <p><strong>profession:</strong> ${profession}</p>
+        `;
+
+        popupContent.innerHTML = content;
+        infoPopup.style.display = "block";
+    }
+});
+
+resetButton.addEventListener("click", () => {
+    surveyForm.reset();
+});
+
+closePopup.addEventListener("click", () => {
+    infoPopup.style.display = "none";
+    surveyForm.reset();
+});
+
+window.addEventListener("click", (event) => {
+    if (event.target === infoPopup) {
+        infoPopup.style.display = "none";
+        surveyForm.reset();
+    }
+});
+
+    </script>
+</body>
+</html>
